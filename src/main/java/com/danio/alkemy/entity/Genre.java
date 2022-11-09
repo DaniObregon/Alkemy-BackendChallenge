@@ -1,11 +1,9 @@
 package com.danio.alkemy.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +20,15 @@ public class Genre {
     private String image;
 
     private GenreType genreType;
+
+    /**
+     * TESTING
+     */
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
+    @JsonIgnore
+    private List<Movie> relatedMovies = new ArrayList<>();
+
+/***************************************************************************************/
 
 //    private List<Movie> movieList = new ArrayList<>();
 //

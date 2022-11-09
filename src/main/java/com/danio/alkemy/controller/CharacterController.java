@@ -26,7 +26,8 @@ public class CharacterController {
     }
 
     @PostMapping
-    public ResponseEntity<CharacterDTO> saveCharacter(Character character) {
+    public ResponseEntity<CharacterDTO> saveCharacter(final CharacterDTO characterDTO) {
+        Character character = Character.from(characterDTO);
         characterService.saveCharacter(character);
         return new ResponseEntity<>(CharacterDTO.from(character), HttpStatus.OK);
     }
@@ -57,8 +58,8 @@ public class CharacterController {
     @PatchMapping(value = "/{id}")
     public ResponseEntity<CharacterDTO> editCharacter(
             @PathVariable final Long id,
-            @RequestBody final Character character) {
-        characterService.editCharacter(id, character);
+            @RequestBody final CharacterDTO characterDTO) {
+        Character character = characterService.editCharacter(id, Character.from(characterDTO));
         return new ResponseEntity<>(CharacterDTO.from(character), HttpStatus.OK);
     }
 
@@ -82,11 +83,31 @@ public class CharacterController {
 
 
 /**
- * Metodo EDIT -> Este funciona. Es el mas simple
- * METODO EDIT -> FUNCIONA TAMBIEN
+ * Metodo EDIT -> FUNCIONA TAMBIEN.
+ * Es mas simple dejando que JPA infiera save o edit segun el id
  */
 //    @PutMapping()
 //    public ResponseEntity<CharacterDTO> editCharacter(@RequestBody Character character) {
+//        characterService.saveCharacter(character);
+//        return new ResponseEntity<>(CharacterDTO.from(character), HttpStatus.OK);
+//    }
+
+/**
+ * METODO EDIT -> FUNCIONA TAMBIEN
+ */
+//    @PutMapping(value = "/{id}")
+//    public ResponseEntity<MovieDTO> editMovie(
+//            @PathVariable final Long id,
+//            @RequestBody final MovieDTO movieDTO) {
+//        Movie movie = movieService.editMovie(id, Movie.from(movieDTO));
+//        return new ResponseEntity<>(MovieDTO.from(movie), HttpStatus.OK);
+//    }
+
+/**
+ * METODO SAVE -> FUNCIONA PERO PERMITE LLENAR PARAMETROS LISTAS
+ */
+//    @PostMapping
+//    public ResponseEntity<CharacterDTO> saveCharacter(final Character character) {
 //        characterService.saveCharacter(character);
 //        return new ResponseEntity<>(CharacterDTO.from(character), HttpStatus.OK);
 //    }

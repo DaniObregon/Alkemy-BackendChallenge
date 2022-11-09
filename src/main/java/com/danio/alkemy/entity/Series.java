@@ -2,6 +2,7 @@ package com.danio.alkemy.entity;
 
 import com.danio.alkemy.dto.MovieDTO;
 import com.danio.alkemy.dto.SeriesDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,8 +29,7 @@ public class Series {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "series_characters",
             joinColumns = {@JoinColumn(name = "series_id")},
-            inverseJoinColumns = {@JoinColumn(name = "character_id")}
-    )
+            inverseJoinColumns = {@JoinColumn(name = "character_id")})
     private List<Character> characters = new ArrayList<>();
 
     public void addCharacter(Character character) {

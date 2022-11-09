@@ -2,6 +2,9 @@ package com.danio.alkemy.entity;
 
 import com.danio.alkemy.dto.CharacterDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,6 +17,7 @@ public class Character {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(hidden = true)
     private Long id;
 
     private String name;
@@ -24,26 +28,19 @@ public class Character {
 
     private String story;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
     private List<Movie> moviesList = new ArrayList<>();
 
-    /**
-     * TESTING -> TESTING OK
-     *************************************************************************************/
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "characters")
     private List<Series> seriesList = new ArrayList<>();
 
-    public void addSeries(Series series){
+    public void addSeries(Series series) {
         seriesList.add(series);
     }
 
-    public void removeSeries(Series series){
+    public void removeSeries(Series series) {
         seriesList.remove(series);
     }
-
-    /**************************************************************************************/
 
     public void addMovie(Movie movie) {
         moviesList.add(movie);
@@ -53,12 +50,12 @@ public class Character {
         moviesList.remove(movie);
     }
 
-    public static Character from(CharacterDTO characterDTO){
+    public static Character from(CharacterDTO characterDTO) {
         Character character = new Character();
         character.setName(characterDTO.getName());
         character.setAge(characterDTO.getAge());
-        character.setWeight(character.getWeight());
-        character.setStory(character.getStory());
+        character.setWeight(characterDTO.getWeight());
+        character.setStory(characterDTO.getStory());
         return character;
     }
 }
