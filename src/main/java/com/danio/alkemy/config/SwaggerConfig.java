@@ -27,11 +27,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Todo API",
-                "La API REST de ToDo App.",
-                "v1",
+                "Disney API",
+                "Disney API for backend Alkemy challenge.\n Spring boot, JPA, Hibernate, MySQL.",
+                "v2.0",
                 "Terms of service",
-                new Contact("Danio Tech", "www.danio.com", "myeaddress@company.com"),
-                "License of API", "API license URL", Collections.emptyList());
+                new Contact("Danio Tech", "https://github.com/DaniObregon", "daniobregon85@gmail.com"),
+                "License of API - public", "API license URL", Collections.emptyList());
     }
 }
