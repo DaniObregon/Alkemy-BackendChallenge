@@ -1,10 +1,13 @@
 package com.danio.alkemy.dto;
 
 import com.danio.alkemy.entity.Series;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
 public class SeriesDTO {
+
+    @ApiModelProperty(required = false, hidden = true)
     private Long id;
     private String title;
     private String rating;

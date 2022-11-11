@@ -15,11 +15,13 @@ import java.util.List;
 public class MovieService {
     private final MovieRepository movieRepository;
     private final CharacterService characterService;
+    private final GenreService genreService;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository, CharacterService characterService) {
+    public MovieService(MovieRepository movieRepository, CharacterService characterService, GenreService genreService) {
         this.movieRepository = movieRepository;
         this.characterService = characterService;
+        this.genreService = genreService;
     }
 
     public Movie findMovieById(Long id) {
@@ -27,7 +29,10 @@ public class MovieService {
     }
 
     public Movie saveMovie(Movie movie) {
-        return movieRepository.save(movie);
+        movie.setGenre(genreService.findGenreByGenreType(movie.getGenreType()));
+        movieRepository.save(movie);
+        genreService.addMovieToGenre(this.findMovieById(movie.getId()));
+        return movie;
     }
 
     public List<Movie> findAllMovies() {
@@ -50,7 +55,7 @@ public class MovieService {
     public Movie addCharacterToMovie(Long movieId, Long characterId) {
         Movie movie = findMovieById(movieId);
         Character character = characterService.findCharacterById(characterId);
-        if (movie.getCharacters().stream().anyMatch(s -> s.getId() == characterId)) {
+        if (movie.getCharacters().stream().anyMatch(s -> s.getId().equals(characterId))) {//s.getId() == characterId)
             throw new CharacterIsAlreadyAssignException(movieId, characterId);
         }
         movie.addCharacter(character);

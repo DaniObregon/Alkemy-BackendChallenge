@@ -1,10 +1,7 @@
 package com.danio.alkemy.entity;
 
 import com.danio.alkemy.dto.CharacterDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 import javax.persistence.*;

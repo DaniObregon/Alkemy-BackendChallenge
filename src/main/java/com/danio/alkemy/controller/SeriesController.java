@@ -20,7 +20,8 @@ public class SeriesController {
     }
 
     @PostMapping
-    public ResponseEntity<SeriesDTO> saveSeries(Series series) {
+    public ResponseEntity<SeriesDTO> saveSeries(final SeriesDTO seriesDTO) {
+        Series series = Series.from(seriesDTO);
         seriesService.saveSeries(series);
         return new ResponseEntity<>(SeriesDTO.from(series), HttpStatus.OK);
     }

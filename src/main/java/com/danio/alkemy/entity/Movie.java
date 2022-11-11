@@ -1,9 +1,6 @@
 package com.danio.alkemy.entity;
 
 import com.danio.alkemy.dto.MovieDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,11 +24,12 @@ public class Movie {
     /**
      * TESTING
      */
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "movie_genre_FK")
+//    @JoinColumn(name = "movie_genre_fk")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="movie_genre_fk")
     private Genre genre;
 
-/*************************************************************************************/
+    /*************************************************************************************/
 
 //    @ApiModelProperty(value = "yyyy/MM/dd", example = "2022/02/22")
 //    private Date date;
@@ -54,6 +52,7 @@ public class Movie {
         Movie movie = new Movie();
         movie.setTitle(movieDTO.getTitle());
         movie.setRating(movieDTO.getRating());
+        movie.setGenreType(movieDTO.getGenreType());
         return movie;
     }
 }
