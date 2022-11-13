@@ -1,14 +1,10 @@
 package com.danio.alkemy.entity;
 
-import com.danio.alkemy.dto.MovieDTO;
 import com.danio.alkemy.dto.SeriesDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,6 +18,12 @@ public class Series {
     private String title;
 
     private String rating;
+
+    private GenreType genreType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="series_genre_fk")
+    private Genre genre;
 
 //    @ApiModelProperty(value = "yyyy/MM/dd", example = "2022/02/22")
 //    private Date date;
@@ -44,6 +46,7 @@ public class Series {
         Series series = new Series();
         series.setTitle(seriesDTO.getTitle());
         series.setRating(seriesDTO.getRating());
+        series.setGenreType(seriesDTO.getGenreType());
         return series;
     }
 }

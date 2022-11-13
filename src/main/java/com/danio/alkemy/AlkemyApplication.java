@@ -11,5 +11,4 @@ public class AlkemyApplication {
     }
 
 }
-//TODO: Edit Entities
 //TODO: Resolver DateTime field

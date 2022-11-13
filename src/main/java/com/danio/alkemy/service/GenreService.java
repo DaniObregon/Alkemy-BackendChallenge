@@ -3,6 +3,7 @@ package com.danio.alkemy.service;
 import com.danio.alkemy.entity.Genre;
 import com.danio.alkemy.entity.GenreType;
 import com.danio.alkemy.entity.Movie;
+import com.danio.alkemy.entity.Series;
 import com.danio.alkemy.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class GenreService {
@@ -37,13 +37,21 @@ public class GenreService {
     }
 
 
-    //TODO: probar metodo para agregar Movie a Genre
-    //TODO: luego de guardar una Movie, se deberia guardar tambien en el Genre
+    //TODO: Documentar -> luego de guardar una Movie, se deberia guardar tambien en el Genre
     // por medio del servicio de Movie llamando al servicio GenreService
     @Transactional
     public Genre addMovieToGenre(Movie movie) {
         Genre genre = genreRepository.findGenreByGenreType(movie.getGenreType());
         genre.addMovie(movie);
+        return genre;
+    }
+
+    //TODO: Documentar -> luego de guardar una Series, se deberia guardar tambien en el Genre
+    // por medio del servicio de Series llamando al servicio GenreService
+    @Transactional
+    public Genre addSeriesToGenre(Series series) {
+        Genre genre = genreRepository.findGenreByGenreType(series.getGenreType());
+        genre.addSeries(series);
         return genre;
     }
 }

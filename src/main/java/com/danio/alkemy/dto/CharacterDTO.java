@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class CharacterDTO {
 
-    @ApiModelProperty(required = false, hidden = true)//Funciona!
+    @ApiModelProperty(required = false, hidden = true)
     private Long id;
     private String name;
     private String age;

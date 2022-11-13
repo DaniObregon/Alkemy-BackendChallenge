@@ -21,15 +21,9 @@ public class Movie {
 
     private GenreType genreType;
 
-    /**
-     * TESTING
-     */
-//    @JoinColumn(name = "movie_genre_fk")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="movie_genre_fk")
     private Genre genre;
-
-    /*************************************************************************************/
 
 //    @ApiModelProperty(value = "yyyy/MM/dd", example = "2022/02/22")
 //    private Date date;

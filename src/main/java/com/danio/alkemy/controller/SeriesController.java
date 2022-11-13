@@ -1,7 +1,10 @@
 package com.danio.alkemy.controller;
 
 import com.danio.alkemy.dto.SeriesDTO;
+import com.danio.alkemy.entity.Genre;
+import com.danio.alkemy.entity.GenreType;
 import com.danio.alkemy.entity.Series;
+import com.danio.alkemy.service.GenreService;
 import com.danio.alkemy.service.SeriesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +17,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/series")
 public class SeriesController {
     private final SeriesService seriesService;
+    private final GenreService genreService;
 
-    public SeriesController(SeriesService seriesService) {
+    public SeriesController(SeriesService seriesService, GenreService genreService) {
         this.seriesService = seriesService;
+        this.genreService = genreService;
     }
 
     @PostMapping
@@ -69,5 +74,17 @@ public class SeriesController {
             @PathVariable final Long characterId) {
         Series series = seriesService.removeCharacterFromSeries(seriesId, characterId);
         return new ResponseEntity<>(SeriesDTO.from(series), HttpStatus.OK);
+    }
+
+    /**
+     * @param genreType
+     * @return
+     */
+    @GetMapping("/genres/{genreType}")
+    public ResponseEntity<List<SeriesDTO>> getSeriesByGenreType(@PathVariable final GenreType genreType) {
+        Genre genre = genreService.findGenreByGenreType(genreType);
+        List<Series> series = genre.getRelatedSeries();
+        List<SeriesDTO> seriesDTOS = series.stream().map(SeriesDTO::from).collect(Collectors.toList());
+        return new ResponseEntity<>(seriesDTOS, HttpStatus.OK);
     }
 }

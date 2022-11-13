@@ -15,11 +15,13 @@ import java.util.List;
 public class SeriesService {
     private final SeriesRepository seriesRepository;
     private final CharacterService characterService;
+    private final GenreService genreService;
 
     @Autowired
-    public SeriesService(SeriesRepository seriesRepository, CharacterService characterService) {
+    public SeriesService(SeriesRepository seriesRepository, CharacterService characterService, GenreService genreService) {
         this.seriesRepository = seriesRepository;
         this.characterService = characterService;
+        this.genreService = genreService;
     }
 
     public Series findSeriesById(Long id) {
@@ -27,7 +29,10 @@ public class SeriesService {
     }
 
     public Series saveSeries(Series series) {
-        return seriesRepository.save(series);
+        series.setGenre(genreService.findGenreByGenreType(series.getGenreType()));
+        seriesRepository.save(series);
+        genreService.addSeriesToGenre(this.findSeriesById(series.getId()));
+        return series;
     }
 
     public List<Series> findAllSeries() {

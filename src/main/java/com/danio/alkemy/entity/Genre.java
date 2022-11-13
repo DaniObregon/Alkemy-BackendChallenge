@@ -20,11 +20,11 @@ public class Genre {
 
     private GenreType genreType;
 
-    /**
-     * TESTING
-     */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
     private List<Movie> relatedMovies = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
+    private List<Series> relatedSeries = new ArrayList<>();
 
     public void addMovie(Movie movie) {
         relatedMovies.add(movie);
@@ -34,11 +34,12 @@ public class Genre {
         relatedMovies.remove(movie);
     }
 
-/***************************************************************************************/
+    public void addSeries(Series series) {
+        relatedSeries.add(series);
+    }
 
-
-//    private List<Movie> movieList = new ArrayList<>();
-//
-//    private List<Series> seriesList = new ArrayList<>();
+    public void removeSeries(Series series) {
+        relatedSeries.remove(series);
+    }
 
 }
