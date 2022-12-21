@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Esta clase inicializa la DB con los generos por defecto
+ * Esta clase inicializa la DB con generos por defecto
  */
 @Component
 public class DataLoader implements ApplicationRunner {

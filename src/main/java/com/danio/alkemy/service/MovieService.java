@@ -77,4 +77,9 @@ public class MovieService {
         List<Movie> movies = movieRepository.findAll();
         movies.forEach(s -> s.removeCharacter(character));
     }
+
+    public List<Character> findAllCharacters(Long id){
+        Movie movie = findMovieById(id);
+        return movie.getCharacters();
+    }
 }
