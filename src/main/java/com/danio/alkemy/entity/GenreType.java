@@ -6,5 +6,5 @@ public enum GenreType {
     MUSICAL,//2
     SCIFI,//3
     COMEDY,//4
-    ADVENTURE;//5
+    ADVENTURE//5
 }

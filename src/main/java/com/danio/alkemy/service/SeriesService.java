@@ -1,6 +1,7 @@
 package com.danio.alkemy.service;
 
 import com.danio.alkemy.entity.Character;
+import com.danio.alkemy.entity.Movie;
 import com.danio.alkemy.entity.Series;
 import com.danio.alkemy.exception.CharacterIsAlreadyAssignException;
 import com.danio.alkemy.exception.SeriesNotFoundException;
@@ -76,5 +77,10 @@ public class SeriesService {
     public void removeCharacterFromAllSeries(Character character) {
         List<Series> series = seriesRepository.findAll();
         series.forEach(s -> s.removeCharacter(character));
+    }
+
+    public List<Character> findAllCharacters(Long id){
+        Series series = findSeriesById(id);
+        return series.getCharacters();
     }
 }

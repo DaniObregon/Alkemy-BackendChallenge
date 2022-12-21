@@ -25,7 +25,7 @@ public class CharacterController {
         this.seriesService = seriesService;
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<CharacterDTO> saveCharacter(final CharacterDTO characterDTO) {
         Character character = Character.from(characterDTO);
         characterService.saveCharacter(character);
@@ -38,7 +38,7 @@ public class CharacterController {
         return new ResponseEntity<>(CharacterDTO.from(character), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<CharacterDTO>> getCharacters() {
         List<CharacterDTO> characterDTOS = characterService.findAllCharacters()
                 .stream()
@@ -78,6 +78,26 @@ public class CharacterController {
         seriesService.removeCharacterFromAllSeries(character);
         characterService.deleteCharacter(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/movies/{movieId}")
+    public ResponseEntity<List<CharacterDTO>> getCharactersFromMovie(@PathVariable final Long movieId){
+        List<Character> characters = movieService.findAllCharacters(movieId);
+        List<CharacterDTO> characterDTOS = characters
+                .stream()
+                .map(CharacterDTO::from)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(characterDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/series/{seriesId}")
+    public ResponseEntity<List<CharacterDTO>> getCharactersFromSeries(@PathVariable final Long seriesId){
+        List<Character> characters = seriesService.findAllCharacters(seriesId);
+        List<CharacterDTO> characterDTOS = characters
+                .stream()
+                .map(CharacterDTO::from)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(characterDTOS, HttpStatus.OK);
     }
 }
 
